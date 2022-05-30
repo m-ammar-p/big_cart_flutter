@@ -1,4 +1,3 @@
-import 'package:e_commerce/base/custom_router.dart';
 import 'package:e_commerce/views/login/login_view.dart';
 import 'package:e_commerce/views/splash/splash_view.dart';
 import 'package:stacked/stacked_annotations.dart';

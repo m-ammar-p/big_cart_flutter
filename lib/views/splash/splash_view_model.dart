@@ -15,7 +15,7 @@ class SplashViewModel extends BaseViewModel {
     // this works like SetState() -> just call it
     // notifyListeners();
 
-    await Future.delayed(Duration(seconds: 5),);
+    await Future.delayed(Duration(seconds: 2),);
 
     locator<NavigationService>().pushNamedAndRemoveUntil(Routes.loginView);
 
