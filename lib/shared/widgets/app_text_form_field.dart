@@ -1,22 +1,35 @@
 import 'package:e_commerce/shared/styles/styles.dart';
 import 'package:flutter/material.dart';
 
-class AppTextFormField extends StatelessWidget {
+class AppTextFormField extends StatefulWidget {
 
   final TextEditingController? controller;
   final FormFieldValidator<String>? validator;
   final Widget? prefixIcon;
+  Widget? suffixIcon;
   final String prefixIconPath;
   final String? hintText;
   final bool isPassField;
+  final bool isPhoneNum;
 
-  const AppTextFormField({Key? key,
+   AppTextFormField({Key? key,
     this.controller,
     this.validator,
     this.prefixIcon,
+    this.suffixIcon,
     this.hintText,
+     this.isPhoneNum = false,
     required this.prefixIconPath,
-    required this.isPassField}) : super(key: key);
+     this.isPassField = false,
+
+  }) : super(key: key);
+
+  @override
+  State<AppTextFormField> createState() => _AppTextFormFieldState();
+}
+
+class _AppTextFormFieldState extends State<AppTextFormField> {
+  bool _isHidden = true;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +37,11 @@ class AppTextFormField extends StatelessWidget {
       Container(
         child: TextFormField(
 
-          validator: validator,
-          controller: controller,
-          obscureText: isPassField,
+          validator: widget.validator,
+          controller: widget.controller,
+          keyboardType: widget.isPhoneNum ? TextInputType.number : TextInputType.text,
+          obscureText: widget.isPassField ? _isHidden : !_isHidden,
+          obscuringCharacter: '•',
           style: heading3.copyWith(
         letterSpacing: 15 * (3 / 100)),
 
@@ -37,8 +52,9 @@ class AppTextFormField extends StatelessWidget {
             ),
             fillColor: appWhiteColor,
             filled: true,
-            hintText: hintText,
-            prefixIcon: prefixIcon ??
+            hintText: widget.hintText,
+
+            prefixIcon: widget.prefixIcon ??
                 Padding(
                   padding: const EdgeInsets.only(left: 28, right: 21),
                   child: SizedBox(
@@ -46,7 +62,7 @@ class AppTextFormField extends StatelessWidget {
                     width: 25,
                     child: FittedBox(
                       child: ImageIcon(
-                        AssetImage(prefixIconPath),
+                        AssetImage(widget.prefixIconPath),
                         color: appGreyColor,
                       ),
                     ),
@@ -57,9 +73,27 @@ class AppTextFormField extends StatelessWidget {
                   borderSide: BorderSide(color: Colors.red, width: 1)
               ),
 
+            suffixIcon: widget.isPassField
+                ? GestureDetector(
+              onTap: _togglePasswordView,
+              child: _isHidden
+                  ? const Icon(
+                Icons.visibility_off,
+                color: appGreyColor,
+              )
+                  : const Icon(Icons.visibility, color: appGreyColor),
+            )
+                : null,
+
           ),
 
         ),
       );
-    } // build
+    }
+ // build
+  void _togglePasswordView() {
+    setState(() {
+      _isHidden = !_isHidden;
+    }); // setState()
+  }
 } // AppTextFormField

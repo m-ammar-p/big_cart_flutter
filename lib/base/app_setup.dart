@@ -1,4 +1,5 @@
 import 'package:e_commerce/views/login/login_view.dart';
+import 'package:e_commerce/views/signup/signup_view.dart';
 import 'package:e_commerce/views/splash/splash_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -8,6 +9,7 @@ import 'package:stacked_services/stacked_services.dart';
   routes: [
     MaterialRoute(page: SplashView, initial: true),
     MaterialRoute(page: LoginView,),
+    MaterialRoute(page: SignupView,),
   ],  // routes
 
   dependencies: [

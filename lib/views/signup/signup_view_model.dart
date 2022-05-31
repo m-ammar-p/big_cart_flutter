@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class LoginViewModel extends BaseViewModel {
+class SignupViewModel extends BaseViewModel {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordlController = TextEditingController();
@@ -27,6 +27,17 @@ class LoginViewModel extends BaseViewModel {
     return null;
   } // validateEmail
 
+  String? validatePhoneNumber(String? value) {
+
+    if(value == null || value.isEmpty) {
+      return "Please enter phone number";
+    }
+
+    if(value.length < 11 || value.length > 11) {
+      return "Phone number must contains exactly 11 digits";
+    }
+    return null;
+  } // validatePassword
 
   String? validatePassword(String? value) {
 
@@ -42,36 +53,10 @@ class LoginViewModel extends BaseViewModel {
 
 
 
-  bool isSwitched = false;
-  var textValue = 'Switch is OFF';
+  void navigateToLoginPage() {
 
-  void toggleSwitch(bool value) {
+    locator<NavigationService>().pushNamedAndRemoveUntil(Routes.loginView);
 
-    if(isSwitched == false)
-    {
-
-        isSwitched = true;
-        textValue = 'Switch Button is ON';
-        notifyListeners();
-
-
-      print(textValue);
-    }
-    else
-    {
-
-        isSwitched = false;
-        textValue = 'Switch Button is OFF';
-        notifyListeners();
-
-
-      print(textValue);
-    }
-  } // toggleSwitch
-
-  void navigateToSignupPage() {
-
-    locator<NavigationService>().pushNamedAndRemoveUntil(Routes.signupView);
   } // navigateToSignupPage
 
 } // LoginViewModel

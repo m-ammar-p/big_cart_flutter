@@ -3,15 +3,14 @@ import 'package:e_commerce/shared/styles/styles.dart';
 import 'package:e_commerce/shared/widgets/app_main_button.dart';
 import 'package:e_commerce/shared/widgets/app_text_form_field.dart';
 import 'package:e_commerce/utils/helper.dart';
-import 'package:e_commerce/views/login/login_view_model.dart';
+import 'package:e_commerce/views/signup/signup_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:stacked/stacked.dart';
 
-class LoginView extends ViewModelBuilderWidget<LoginViewModel> {
+class SignupView extends ViewModelBuilderWidget<SignupViewModel> {
   @override
   Widget builder(
-      BuildContext context, LoginViewModel viewModel, Widget? child) {
+      BuildContext context, SignupViewModel viewModel, Widget? child) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -25,10 +24,10 @@ class LoginView extends ViewModelBuilderWidget<LoginViewModel> {
               right: 0,
               child: Container(
                 width: double.maxFinite,
-                height: screenHeight(context, percentage: 0.75),
+                height: screenHeight(context, percentage: 1.3),
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage(Assets.assetsLoginBackground),
+                        image: AssetImage(Assets.assetsSignupBackground),
                         fit: BoxFit.cover)),
               ),
             ),
@@ -43,7 +42,7 @@ class LoginView extends ViewModelBuilderWidget<LoginViewModel> {
               ),
             ),
 
-            // login Container
+            // Signup Container
             Positioned(
               top: screenHeight(context, percentage: 0.5),
               child: Container(
@@ -64,13 +63,16 @@ class LoginView extends ViewModelBuilderWidget<LoginViewModel> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+
+                          // Create an account text
                           Text(
-                            "Welcome back !",
+                            "Create an account",
                             style: heading5,
                           ),
 
+                          // Quickly create account text
                           Text(
-                            "Sign in to your account",
+                            "Quickly create account",
                             style: paragraph2,
                           ),
 
@@ -89,6 +91,18 @@ class LoginView extends ViewModelBuilderWidget<LoginViewModel> {
                           SizedBox(
                             height: 5,
                           ),
+
+                          AppTextFormField(
+                            controller: viewModel.emailController,
+                            isPhoneNum: true,
+                            validator: viewModel.validatePhoneNumber,
+                            hintText: "Phone number",
+                            prefixIconPath: Assets.assetsPhoneIcon,
+                          ),
+
+                          SizedBox(
+                            height: 5,
+                          ),
                           // Password Field
                           AppTextFormField(
                             controller: viewModel.passwordlController,
@@ -98,44 +112,6 @@ class LoginView extends ViewModelBuilderWidget<LoginViewModel> {
                             prefixIconPath: Assets.assetsPasswordIcon,
                           ),
 
-                          // switch and forgot text
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 25, left: 20, right: 2),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                FlutterSwitch(
-                                    padding: 0,
-                                    height: 16,
-                                    width: 30.0,
-                                    toggleSize: 13,
-                                    switchBorder: Border.all(
-                                        width: 1.3, color: appGreyColor),
-                                    toggleBorder: Border.all(
-                                        width: 1.3, color: appGreyColor),
-                                    activeColor: appGreenColor,
-                                    inactiveColor: appWhiteColor,
-                                    value: viewModel.isSwitched,
-                                    onToggle: viewModel.toggleSwitch),
-
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                // Remember me text
-                                Text(
-                                  "Remember me",
-                                  style: paragraph1,
-                                ),
-                                Spacer(),
-                                Text(
-                                  "Forgot Password",
-                                  style:
-                                      paragraph1.copyWith(color: appBlueColor),
-                                ),
-                              ],
-                            ),
-                          ),
 
                           SizedBox(
                             height: 30,
@@ -143,7 +119,7 @@ class LoginView extends ViewModelBuilderWidget<LoginViewModel> {
 
                           // Login Button
                           AppMainButton(
-                            text: "Login",
+                            text: "Signup",
                             onTap: () => viewModel.onLoginTap(context),
                           ),
 
@@ -156,16 +132,16 @@ class LoginView extends ViewModelBuilderWidget<LoginViewModel> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "Don’t have an account ? ",
+                                    "Already have an account ? ",
                                     style: paragraph3,
                                   ),
                                   GestureDetector(
                                     child: Text(
-                                      "Sign up",
+                                      "Login",
                                       style: paragraph1.copyWith(
                                           color: Colors.black),
                                     ),
-                                    onTap: () => viewModel.navigateToSignupPage(),
+                                    onTap: () => viewModel.navigateToLoginPage(),
                                   ),
                                 ],
                               )),
@@ -183,7 +159,7 @@ class LoginView extends ViewModelBuilderWidget<LoginViewModel> {
   } // builder
 
   @override
-  LoginViewModel viewModelBuilder(BuildContext context) => LoginViewModel();
+  SignupViewModel viewModelBuilder(BuildContext context) => SignupViewModel();
 
   // reactive = false (means Stateless)
   // reactive = true (means Stateful)
