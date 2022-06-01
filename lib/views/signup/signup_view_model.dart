@@ -8,6 +8,7 @@ class SignupViewModel extends BaseViewModel {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordlController = TextEditingController();
+  TextEditingController phonelController = TextEditingController();
 
   void onLoginTap(BuildContext context) async {
     if (!(Form.of(context)?.validate() ?? false)) {

@@ -13,147 +13,140 @@ class SignupView extends ViewModelBuilderWidget<SignupViewModel> {
       BuildContext context, SignupViewModel viewModel, Widget? child) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Container(
-        width: double.maxFinite,
-        height: double.maxFinite,
-        child: Stack(
-          children: [
-            // login background image container
-            Positioned(
-              left: 0,
-              right: 0,
-              child: Container(
-                width: double.maxFinite,
-                height: screenHeight(context, percentage: 1.3),
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(Assets.assetsSignupBackground),
-                        fit: BoxFit.cover)),
-              ),
-            ),
+      body: CustomScrollView(
 
+        slivers: [
+          // background image
+          SliverAppBar(
             // Welcome Text on background image
-            Positioned(
-              top: 63,
-              left: screenWidth(context, percentage: 0.4),
-              child: Text(
-                "Welcome",
-                style: heading6,
-              ),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Welcome", style: heading6,),
+              ],
             ),
 
-            // Signup Container
-            Positioned(
-              top: screenHeight(context, percentage: 0.5),
-              child: Container(
-                height: screenHeight(context, percentage: 1),
-                width: screenWidth(context, percentage: 1),
-                decoration: BoxDecoration(
-                  color: appGreyColorBackground,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                  ),
-                ),
-                child: Form(
-                  child: Builder(builder: (context) {
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                          top: 30, left: 16, right: 16, bottom: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+            pinned: true,
+            backgroundColor: Colors.black12.withOpacity(0.1),
+            expandedHeight: screenHeight(context, percentage: 0.48),
+            flexibleSpace: FlexibleSpaceBar(
+              background: Image.asset(Assets.assetsSignupBackground,
+                width: double.maxFinite,
 
-                          // Create an account text
-                          Text(
-                            "Create an account",
-                            style: heading5,
-                          ),
+                fit: BoxFit.cover,),
+            ),
+          ),
 
-                          // Quickly create account text
-                          Text(
-                            "Quickly create account",
-                            style: paragraph2,
-                          ),
-
-                          SizedBox(
-                            height: 20,
-                          ),
-
-                          // Email Field
-                          AppTextFormField(
-                            controller: viewModel.emailController,
-                            validator: viewModel.validateEmail,
-                            hintText: "Email Address",
-                            prefixIconPath: Assets.assetsEmailIcon,
-                          ),
-
-                          SizedBox(
-                            height: 5,
-                          ),
-
-                          AppTextFormField(
-                            controller: viewModel.emailController,
-                            isPhoneNum: true,
-                            validator: viewModel.validatePhoneNumber,
-                            hintText: "Phone number",
-                            prefixIconPath: Assets.assetsPhoneIcon,
-                          ),
-
-                          SizedBox(
-                            height: 5,
-                          ),
-                          // Password Field
-                          AppTextFormField(
-                            controller: viewModel.passwordlController,
-                            validator: viewModel.validatePassword,
-                            hintText: "Password",
-                            isPassField: true,
-                            prefixIconPath: Assets.assetsPasswordIcon,
-                          ),
-
-
-                          SizedBox(
-                            height: 30,
-                          ),
-
-                          // Login Button
-                          AppMainButton(
-                            text: "Signup",
-                            onTap: () => viewModel.onLoginTap(context),
-                          ),
-
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Align(
-                              alignment: Alignment.topCenter,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Already have an account ? ",
-                                    style: paragraph3,
-                                  ),
-                                  GestureDetector(
-                                    child: Text(
-                                      "Login",
-                                      style: paragraph1.copyWith(
-                                          color: Colors.black),
-                                    ),
-                                    onTap: () => viewModel.navigateToLoginPage(),
-                                  ),
-                                ],
-                              )),
-                        ],
-                      ),
-                    );
-                  }),
+          SliverToBoxAdapter(
+            child: Container(
+              height: screenHeight(context, percentage: 0.9),
+              width: screenWidth(context, percentage: 1),
+              decoration: BoxDecoration(
+                color: appGreyColorBackground,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
                 ),
               ),
+              child: Form(
+                child: Builder(builder: (context) {
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                        top: 30, left: 16, right: 16, bottom: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+
+                        // Create an account text
+                        Text(
+                          "Create an account",
+                          style: heading5,
+                        ),
+
+                        // Quickly create account text
+                        Text(
+                          "Quickly create account",
+                          style: paragraph2,
+                        ),
+
+                        SizedBox(
+                          height: 20,
+                        ),
+
+                        // Email Field
+                        AppTextFormField(
+                          controller: viewModel.emailController,
+                          validator: viewModel.validateEmail,
+                          hintText: "Email Address",
+                          prefixIconPath: Assets.assetsEmailIcon,
+                        ),
+
+                        SizedBox(
+                          height: 5,
+                        ),
+
+                        AppTextFormField(
+                          controller: viewModel.phonelController,
+                          isPhoneNum: true,
+                          validator: viewModel.validatePhoneNumber,
+                          hintText: "Phone number",
+                          prefixIconPath: Assets.assetsPhoneIcon,
+                        ),
+
+                        SizedBox(
+                          height: 5,
+                        ),
+                        // Password Field
+                        AppTextFormField(
+                          controller: viewModel.passwordlController,
+                          validator: viewModel.validatePassword,
+                          hintText: "Password",
+                          isPassField: true,
+                          prefixIconPath: Assets.assetsPasswordIcon,
+                        ),
+
+
+                        SizedBox(
+                          height: 30,
+                        ),
+
+                        // Login Button
+                        AppMainButton(
+                          text: "Signup",
+                          onTap: () => viewModel.onLoginTap(context),
+                        ),
+
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Align(
+                            alignment: Alignment.topCenter,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Already have an account ? ",
+                                  style: paragraph3,
+                                ),
+                                GestureDetector(
+                                  child: Text(
+                                    "Login",
+                                    style: paragraph1.copyWith(
+                                        color: Colors.black),
+                                  ),
+                                  onTap: () => viewModel.navigateToLoginPage(),
+                                ),
+                              ],
+                            )),
+                      ],
+                    ),
+                  );
+                }),
+              ),
             ),
-          ],
-        ),
+          ),
+        ], // slivers
+
       ),
     );
   } // builder

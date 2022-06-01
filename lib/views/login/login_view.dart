@@ -10,174 +10,168 @@ import 'package:stacked/stacked.dart';
 
 class LoginView extends ViewModelBuilderWidget<LoginViewModel> {
   @override
-  Widget builder(
-      BuildContext context, LoginViewModel viewModel, Widget? child) {
+  Widget builder(BuildContext context, LoginViewModel viewModel,
+      Widget? child) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Container(
-        width: double.maxFinite,
-        height: double.maxFinite,
-        child: Stack(
-          children: [
-            // login background image container
-            Positioned(
-              left: 0,
-              right: 0,
-              child: Container(
-                width: double.maxFinite,
-                height: screenHeight(context, percentage: 0.75),
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(Assets.assetsLoginBackground),
-                        fit: BoxFit.cover)),
-              ),
-            ),
+      body: CustomScrollView(
+        slivers: [
 
+          // background image
+          SliverAppBar(
             // Welcome Text on background image
-            Positioned(
-              top: 63,
-              left: screenWidth(context, percentage: 0.4),
-              child: Text(
-                "Welcome",
-                style: heading6,
-              ),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Welcome", style: heading6,),
+              ],
             ),
 
+            pinned: true,
+            backgroundColor: Colors.black12.withOpacity(0.1),
+            expandedHeight: screenHeight(context,percentage: 0.5),
+            flexibleSpace: FlexibleSpaceBar(
+              background: Image.asset(Assets.assetsLoginBackground,
+                width: double.maxFinite,
+
+                fit: BoxFit.cover,),
+            ),
+          ),
+
+          // login Container
+          SliverToBoxAdapter(
             // login Container
-            Positioned(
-              top: screenHeight(context, percentage: 0.5),
-              child: Container(
-                height: screenHeight(context, percentage: 1),
-                width: screenWidth(context, percentage: 1),
-                decoration: BoxDecoration(
-                  color: appGreyColorBackground,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                  ),
+            child: Container(
+              height: screenHeight(context, percentage: 0.9),
+              decoration: BoxDecoration(
+                color: appGreyColorBackground,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
                 ),
-                child: Form(
-                  child: Builder(builder: (context) {
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                          top: 30, left: 16, right: 16, bottom: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Welcome back !",
-                            style: heading5,
-                          ),
+              ),
+              child: Form(
+                child: Builder(builder: (context) {
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                        top: 30, left: 16, right: 16, bottom: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Welcome back !",
+                          style: heading5,
+                        ),
 
-                          Text(
-                            "Sign in to your account",
-                            style: paragraph2,
-                          ),
+                        Text(
+                          "Sign in to your account",
+                          style: paragraph2,
+                        ),
 
-                          SizedBox(
-                            height: 20,
-                          ),
+                        SizedBox(
+                          height: 20,
+                        ),
 
-                          // Email Field
-                          AppTextFormField(
-                            controller: viewModel.emailController,
-                            validator: viewModel.validateEmail,
-                            hintText: "Email Address",
-                            prefixIconPath: Assets.assetsEmailIcon,
-                          ),
+                        // Email Field
+                        AppTextFormField(
+                          controller: viewModel.emailController,
+                          validator: viewModel.validateEmail,
+                          hintText: "Email Address",
+                          prefixIconPath: Assets.assetsEmailIcon,
+                        ),
 
-                          SizedBox(
-                            height: 5,
-                          ),
-                          // Password Field
-                          AppTextFormField(
-                            controller: viewModel.passwordlController,
-                            validator: viewModel.validatePassword,
-                            hintText: "Password",
-                            isPassField: true,
-                            prefixIconPath: Assets.assetsPasswordIcon,
-                          ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        // Password Field
+                        AppTextFormField(
+                          controller: viewModel.passwordlController,
+                          validator: viewModel.validatePassword,
+                          hintText: "Password",
+                          isPassField: true,
+                          prefixIconPath: Assets.assetsPasswordIcon,
+                        ),
 
-                          // switch and forgot text
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 25, left: 20, right: 2),
+                        // switch and forgot text
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 25, left: 20, right: 2),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              FlutterSwitch(
+                                  padding: 0,
+                                  height: 16,
+                                  width: 30.0,
+                                  toggleSize: 13,
+                                  switchBorder: Border.all(
+                                      width: 1.3, color: appGreyColor),
+                                  toggleBorder: Border.all(
+                                      width: 1.3, color: appGreyColor),
+                                  activeColor: appGreenColor,
+                                  inactiveColor: appWhiteColor,
+                                  value: viewModel.isSwitched,
+                                  onToggle: viewModel.toggleSwitch),
+
+                              SizedBox(
+                                width: 8,
+                              ),
+                              // Remember me text
+                              Text(
+                                "Remember me",
+                                style: paragraph1,
+                              ),
+                              Spacer(),
+                              Text(
+                                "Forgot Password",
+                                style:
+                                paragraph1.copyWith(color: appBlueColor),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        SizedBox(
+                          height: 30,
+                        ),
+
+                        // Login Button
+                        AppMainButton(
+                          text: "Login",
+                          onTap: () => viewModel.onLoginTap(context),
+                        ),
+
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Align(
+                            alignment: Alignment.topCenter,
                             child: Row(
-                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                FlutterSwitch(
-                                    padding: 0,
-                                    height: 16,
-                                    width: 30.0,
-                                    toggleSize: 13,
-                                    switchBorder: Border.all(
-                                        width: 1.3, color: appGreyColor),
-                                    toggleBorder: Border.all(
-                                        width: 1.3, color: appGreyColor),
-                                    activeColor: appGreenColor,
-                                    inactiveColor: appWhiteColor,
-                                    value: viewModel.isSwitched,
-                                    onToggle: viewModel.toggleSwitch),
-
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                // Remember me text
                                 Text(
-                                  "Remember me",
-                                  style: paragraph1,
+                                  "Don’t have an account ? ",
+                                  style: paragraph3,
                                 ),
-                                Spacer(),
-                                Text(
-                                  "Forgot Password",
-                                  style:
-                                      paragraph1.copyWith(color: appBlueColor),
+                                GestureDetector(
+                                  child: Text(
+                                    "Sign up",
+                                    style: paragraph1.copyWith(
+                                        color: Colors.black),
+                                  ),
+                                  onTap: () => viewModel.navigateToSignupPage(),
                                 ),
                               ],
-                            ),
-                          ),
-
-                          SizedBox(
-                            height: 30,
-                          ),
-
-                          // Login Button
-                          AppMainButton(
-                            text: "Login",
-                            onTap: () => viewModel.onLoginTap(context),
-                          ),
-
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Align(
-                              alignment: Alignment.topCenter,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Don’t have an account ? ",
-                                    style: paragraph3,
-                                  ),
-                                  GestureDetector(
-                                    child: Text(
-                                      "Sign up",
-                                      style: paragraph1.copyWith(
-                                          color: Colors.black),
-                                    ),
-                                    onTap: () => viewModel.navigateToSignupPage(),
-                                  ),
-                                ],
-                              )),
-                        ],
-                      ),
-                    );
-                  }),
-                ),
+                            )),
+                      ],
+                    ),
+                  );
+                }),
               ),
             ),
-          ],
-        ),
+
+          ),
+        ],
       ),
     );
   } // builder
