@@ -28,7 +28,7 @@ class LoginView extends ViewModelBuilderWidget<LoginViewModel> {
             ),
 
             pinned: true,
-            backgroundColor: Colors.black12.withOpacity(0.1),
+            backgroundColor: appGreenSecondary.withOpacity(1),
             expandedHeight: screenHeight(context,percentage: 0.5),
             flexibleSpace: FlexibleSpaceBar(
               background: Image.asset(Assets.assetsLoginBackground,

@@ -27,7 +27,7 @@ class SignupView extends ViewModelBuilderWidget<SignupViewModel> {
             ),
 
             pinned: true,
-            backgroundColor: Colors.black12.withOpacity(0.1),
+            backgroundColor: appGreenSecondary.withOpacity(1),
             expandedHeight: screenHeight(context, percentage: 0.48),
             flexibleSpace: FlexibleSpaceBar(
               background: Image.asset(Assets.assetsSignupBackground,

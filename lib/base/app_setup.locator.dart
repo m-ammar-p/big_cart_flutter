@@ -9,6 +9,8 @@
 import 'package:stacked_core/stacked_core.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../services/carousel_services.dart';
+
 final locator = StackedLocator.instance;
 
 Future<void> setupLocator(
@@ -18,5 +20,6 @@ Future<void> setupLocator(
       environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
+  locator.registerLazySingleton(() => CarouselService());
   locator.registerSingleton(NavigationService());
 }
