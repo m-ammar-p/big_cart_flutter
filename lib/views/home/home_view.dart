@@ -1,12 +1,16 @@
-import 'package:e_commerce/constants/assets/assets_path.dart';
+import 'package:e_commerce/shared/styles/styles.dart';
 import 'package:e_commerce/shared/widgets/app_text_field.dart';
 import 'package:e_commerce/shared/widgets/carousel_banner.dart';
+import 'package:e_commerce/shared/widgets/title_with_arrow_button.dart';
 import 'package:e_commerce/utils/helper.dart';
+import 'package:e_commerce/views/home/category_Layout.dart';
 import 'package:e_commerce/views/home/home_view_model.dart';
+import 'package:e_commerce/views/home/products_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:stacked/stacked.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+
+// padding: EdgeInsets.only(top: 50, left: 16, right: 16),
 
 class HomeView extends ViewModelBuilderWidget<HomeViewModel> {
   const HomeView({Key? key}) : super(key: key);
@@ -21,27 +25,51 @@ class HomeView extends ViewModelBuilderWidget<HomeViewModel> {
         decoration: BoxDecoration(
           color: Colors.white,
         ),
-        child: Padding(
-          padding: EdgeInsets.only(top: 50, left: 16, right: 16),
-          child: Column(
-            children: [
-              AppTextField(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 50, left: 16, right: 16),
+              child: AppTextField(
                 placeholder: "Search keywords...",
                 controller: viewModel.searchController,
               ),
-              SizedBox(
-                height: 10,
+            ),
+
+            Expanded(
+              child: ListView(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 0, left: 16, right: 16),
+                    child: Column(
+                      children: [
+                        CarouselBanner(items: viewModel.carouselList),
+                        TitleWithArrowButton(title: "Categories",),
+                        CategoryLayout(),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20,),
+
+
+                  Container(
+                    color: appGreyColorBackground,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top:10, left: 16, right: 16),
+                      child: Column(
+                        children: [
+                          TitleWithArrowButton(title: "Featured products",),
+                          ProductsGrid(),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              Expanded(
-                child: Column(
-                  children: [
-                    CarouselBanner(items: viewModel.carouselList),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            ),
+
+          ],
         ),
+
       ),
     );
   } // builder

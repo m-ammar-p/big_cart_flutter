@@ -30,8 +30,17 @@ class Assets {
   static String get assetsPasswordIcon => "assets/password_icon.png";
   static String get assetsPhoneIcon => "assets/phone_icon.png";
   static String get assetsSearchIcon => "assets/search_icon.png";
+  static String get assetsFreshPeach => "assets/fresh_peach.png";
+  static String get assetsFavorite_Selected => "assets/favorite_selected.png";
+  static String get assetsFavorite_Unelected => "assets/favorite_unselected.png";
+  static String get assetsFreshPeachNobackgound => "assets/fresh_peach_nobackground.png";
   static String get assetsSignupBackground => "assets/signup_background.png";
   static String get assetsSplashBackground => "assets/splash_background.png";
   static String get assetsVegetables => "assets/vegetables.png";
   static String get assetsZipcodeIcon => "assets/zipcode_icon.png";
+
+  // SVG
+  static String get assetsAddIcon => "assets/add_icon.svg";
+  static String get assetsSubtractIcon => "assets/subtract_icon.svg";
+
 }

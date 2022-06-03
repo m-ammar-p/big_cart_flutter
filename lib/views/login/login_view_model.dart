@@ -70,7 +70,6 @@ class LoginViewModel extends BaseViewModel {
   } // toggleSwitch
 
   void navigateToSignupPage() {
-
     locator<NavigationService>().pushNamedAndRemoveUntil(Routes.signupView);
   } // navigateToSignupPage
 

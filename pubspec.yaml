@@ -40,6 +40,7 @@ dependencies:
   stacked_services: ^0.8.24
   flutter_switch: ^0.3.2
   carousel_slider: ^4.1.1
+  flutter_svg: ^1.1.0
 
 dev_dependencies:
   flutter_test:
