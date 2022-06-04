@@ -34,7 +34,7 @@ class _CarouselBannerState extends State<CarouselBanner> {
           CarouselSlider.builder(
             itemCount: widget.items.length,
             itemBuilder: (context, index, pageIndex) => Container(
-              margin: const EdgeInsets.only(bottom: 20),
+              margin: const EdgeInsets.only(bottom: 20,),
               alignment: Alignment.bottomLeft,
               width: bannerWidth,
               height: bannerHeight,

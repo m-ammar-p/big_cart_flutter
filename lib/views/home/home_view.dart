@@ -1,6 +1,9 @@
+import 'package:e_commerce/base/app_setup.locator.dart';
+import 'package:e_commerce/base/app_setup.router.dart';
 import 'package:e_commerce/shared/styles/styles.dart';
 import 'package:e_commerce/shared/widgets/app_text_field.dart';
 import 'package:e_commerce/shared/widgets/carousel_banner.dart';
+import 'package:e_commerce/shared/widgets/floating_button.dart';
 import 'package:e_commerce/shared/widgets/title_with_arrow_button.dart';
 import 'package:e_commerce/utils/helper.dart';
 import 'package:e_commerce/views/home/category_Layout.dart';
@@ -9,6 +12,7 @@ import 'package:e_commerce/views/home/products_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 // padding: EdgeInsets.only(top: 50, left: 16, right: 16),
 
@@ -20,6 +24,7 @@ class HomeView extends ViewModelBuilderWidget<HomeViewModel> {
     double bannerWidth = screenWidth(context) - 34;
 
     return Scaffold(
+      floatingActionButton: FloatingButton(onPressed:() => locator<NavigationService>().pushNamedAndRemoveUntil(Routes.productsView)),
       body: Container(
         height: screenHeight(context, percentage: 1),
         decoration: BoxDecoration(
@@ -28,7 +33,7 @@ class HomeView extends ViewModelBuilderWidget<HomeViewModel> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 50, left: 16, right: 16),
+              padding: const EdgeInsets.only(top: 50, left: 16, right: 16, bottom: 10),
               child: AppTextField(
                 placeholder: "Search keywords...",
                 controller: viewModel.searchController,
