@@ -28,7 +28,7 @@ class CustomizedAppBar extends StatelessWidget {
           Positioned(
             bottom: 29,
             child: Text(
-              "Vegetables",
+              title,
               style: heading6.copyWith(color: Colors.black),
             ),
           ),

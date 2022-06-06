@@ -1,6 +1,9 @@
 import 'package:e_commerce/base/app_setup.router.dart';
 import 'package:e_commerce/views/home/home_view.dart';
+import 'package:e_commerce/views/order_success/order_success_view.dart';
 import 'package:e_commerce/views/products/products_view.dart';
+import 'package:e_commerce/views/shipping_information/shipping_view.dart';
+import 'package:e_commerce/views/shopping_cart/shopping_cart_view.dart';
 import 'package:e_commerce/views/splash/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -23,7 +26,7 @@ class AppView extends StatelessWidget {
 
         primarySwatch: Colors.blue,
       ),
-      home: const HomeView(),
+      home: const OrderSuccessView(),
       debugShowCheckedModeBanner: false,
     );
   } // build

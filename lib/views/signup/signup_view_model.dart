@@ -38,7 +38,7 @@ class SignupViewModel extends BaseViewModel {
       return "Phone number must contains exactly 11 digits";
     }
     return null;
-  } // validatePassword
+  } // validatePhoneNumber
 
   String? validatePassword(String? value) {
 
