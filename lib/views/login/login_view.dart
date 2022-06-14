@@ -139,6 +139,7 @@ class LoginView extends ViewModelBuilderWidget<LoginViewModel> {
                         AppMainButton(
                           text: "Login",
                           onTap: () => viewModel.onLoginTap(context),
+                          isLoading: viewModel.isLoading,
                         ),
 
                         SizedBox(

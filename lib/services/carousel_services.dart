@@ -1,5 +1,5 @@
 import 'package:e_commerce/constants/assets/assets_path.dart';
-import 'package:e_commerce/model/carousel_item_model.dart';
+import 'package:e_commerce/models/carousel_item_model.dart';
 
 
 class CarouselService {

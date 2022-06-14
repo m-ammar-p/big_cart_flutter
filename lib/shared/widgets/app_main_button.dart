@@ -1,15 +1,16 @@
 import 'package:e_commerce/shared/styles/styles.dart';
 import 'package:flutter/material.dart';
 
-
 class AppMainButton extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
+  final bool? isLoading;
 
   const AppMainButton({
     Key? key,
     required this.text,
     required this.onTap,
+    this.isLoading,
   }) : super(key: key);
 
   @override
@@ -38,7 +39,19 @@ class AppMainButton extends StatelessWidget {
             ),
           ],
         ),
-        child:  Text(text, style: heading7,),
+        child: isLoading == true
+            ? const Padding(
+                padding: EdgeInsets.symmetric(vertical: 15),
+                child: FittedBox(
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                  ),
+                ),
+              )
+            : Text(
+                text,
+                style: heading7,
+              ),
       ),
     );
   } // build

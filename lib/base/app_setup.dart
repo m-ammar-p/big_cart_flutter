@@ -1,3 +1,4 @@
+import 'package:e_commerce/services/auth_service.dart';
 import 'package:e_commerce/services/carousel_services.dart';
 import 'package:e_commerce/views/home/home_view.dart';
 import 'package:e_commerce/views/login/login_view.dart';
@@ -27,6 +28,7 @@ import 'package:stacked_services/stacked_services.dart';
   dependencies: [
 
     LazySingleton(classType: CarouselService),
+    LazySingleton(classType: AuthService),
 
     // we have to register NavigationService
     // get_it

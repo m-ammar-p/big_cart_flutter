@@ -1,5 +1,6 @@
 import 'package:e_commerce/base/app_setup.router.dart';
 import 'package:e_commerce/views/home/home_view.dart';
+import 'package:e_commerce/views/login/login_view.dart';
 import 'package:e_commerce/views/order_success/order_success_view.dart';
 import 'package:e_commerce/views/products/products_view.dart';
 import 'package:e_commerce/views/shipping_information/shipping_view.dart';
@@ -26,7 +27,7 @@ class AppView extends StatelessWidget {
 
         primarySwatch: Colors.blue,
       ),
-      home: const OrderSuccessView(),
+      home: LoginView(),
       debugShowCheckedModeBanner: false,
     );
   } // build

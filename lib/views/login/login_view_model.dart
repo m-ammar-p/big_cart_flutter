@@ -1,18 +1,33 @@
 import 'package:e_commerce/base/app_setup.locator.dart';
 import 'package:e_commerce/base/app_setup.router.dart';
+import 'package:e_commerce/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class LoginViewModel extends BaseViewModel {
 
+  bool isLoading = false;
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordlController = TextEditingController();
+
+  final _authService = locator<AuthService>();
 
   void onLoginTap(BuildContext context) async {
     if (!(Form.of(context)?.validate() ?? false)) {
       return;
     }
+
+    isLoading = true;
+    // it will terminate automatically when task will be done
+    var res = await runBusyFuture(_authService.loginUser(emailController.text, passwordlController.text));
+    isLoading = false;
+
+    if(res){
+      navigateToSignupPage();
+    }
+
   } // onLoginTap
 
   String? validateEmail(String? value) {
@@ -73,4 +88,7 @@ class LoginViewModel extends BaseViewModel {
     locator<NavigationService>().pushNamedAndRemoveUntil(Routes.signupView);
   } // navigateToSignupPage
 
+  void navigateToHomePage() {
+    locator<NavigationService>().replaceWith(Routes.homeView);
+  } // navigateToSignupPage
 } // LoginViewModel
