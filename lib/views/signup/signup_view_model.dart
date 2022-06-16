@@ -55,7 +55,6 @@ class SignupViewModel extends BaseViewModel {
 
 
   void navigateToLoginPage() {
-
     locator<NavigationService>().pushNamedAndRemoveUntil(Routes.loginView);
 
   } // navigateToSignupPage

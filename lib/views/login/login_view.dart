@@ -9,6 +9,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:stacked/stacked.dart';
 
 class LoginView extends ViewModelBuilderWidget<LoginViewModel> {
+
   @override
   Widget builder(BuildContext context, LoginViewModel viewModel,
       Widget? child) {
@@ -184,4 +185,10 @@ class LoginView extends ViewModelBuilderWidget<LoginViewModel> {
   // reactive = true (means Stateful)
   @override
   bool get reactive => true;
+
+  @override
+  void onViewModelReady(LoginViewModel viewModel) {
+
+    viewModel.init();
+  } // onViewModelReady
 } //LoginView

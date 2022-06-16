@@ -6,10 +6,12 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:stacked/stacked.dart';
 
 class CategoryLayout extends ViewModelBuilderWidget<HomeViewModel> {
-  const CategoryLayout({Key? key}) : super(key: key);
+  const CategoryLayout({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  Widget builder(BuildContext context, viewModel, Widget? child) {
+  Widget builder(BuildContext context, HomeViewModel viewModel, Widget? child) {
     return SizedBox(
       height: 110,
       child: Column(
@@ -18,7 +20,7 @@ class CategoryLayout extends ViewModelBuilderWidget<HomeViewModel> {
           Expanded(
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 20,
+                itemCount: viewModel.categories.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Column(
                     children: [
@@ -34,14 +36,20 @@ class CategoryLayout extends ViewModelBuilderWidget<HomeViewModel> {
                         height: 60,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.lightBlue.withOpacity(0.1),
+                          color:getCategoryColorFromId(
+                              viewModel.categories[index].id ?? 0),
                         ),
-                        child: Image.asset(Assets.assetsVegetables),
+                        child: Image.asset(
+                          getCategoryIconFromId(
+                              viewModel.categories[index].id ?? 0),
+                        ),
                       ),
                       Flexible(
                         child: Text(
-                          "Vegetables",
-                          style: paragraph7.copyWith(fontSize: 12,),
+                          viewModel.categories[index].title ?? "veg",
+                          style: paragraph7.copyWith(
+                            fontSize: 12,
+                          ),
                           maxLines: 2,
                           textAlign: TextAlign.center,
                         ),
@@ -57,4 +65,12 @@ class CategoryLayout extends ViewModelBuilderWidget<HomeViewModel> {
 
   @override
   HomeViewModel viewModelBuilder(BuildContext context) => HomeViewModel();
-}
+
+  @override
+  void onViewModelReady(HomeViewModel viewModel) {
+    viewModel.init();
+  } // onViewModelReady
+
+  @override
+  bool get reactive => true;
+} // CategoryLayout

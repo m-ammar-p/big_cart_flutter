@@ -17,8 +17,10 @@ class Assets {
   static String get assetsFilterBlack => "assets/filter_black.png";
   static String get assetsForwardArrow => "assets/forward_arrow.png";
   static String get assetsFruits => "assets/fruits.png";
+  static String get beveragesIcon => "assets/beverages_icon.png";
   static String get assetsGlobeIcon => "assets/globe_icon.png";
   static String get assetsGrocery => "assets/grocery.png";
+  static String get errorIcon => "assets/error_con.png";
   static String get assetsHeart => "assets/heart.png";
   static String get assetsHeartFilled => "assets/heart_filled.png";
   static String get assetsHousehold => "assets/household.png";

@@ -1,3 +1,4 @@
+import 'package:e_commerce/constants/assets/assets_path.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -117,3 +118,41 @@ TextStyle paragraph9 = GoogleFonts.poppins(
   fontWeight: FontWeight.w700,
   color: appGreyDark,
 );
+
+Color getCategoryColorFromId(int id) {
+  switch (id) {
+    case 1:
+      return const Color(0xFFE6F2EA);
+    case 2:
+      return const Color(0xFFFFE9E5);
+    case 3:
+      return const Color(0xFFFFF6E3);
+    case 4:
+      return const Color(0xFFF3EFFA);
+    case 5:
+      return const Color(0xFFDCF4F5);
+    case 6:
+      return const Color(0xFFFFE8F2);
+    default:
+      return const Color(0xFFFFFFFF);
+  }
+}
+
+String getCategoryIconFromId(int id) {
+  switch (id) {
+    case 1:
+      return Assets.assetsVegetables;
+    case 2:
+      return Assets.assetsFruits;
+    case 3:
+      return Assets.beveragesIcon;
+    case 4:
+      return Assets.assetsGrocery;
+    case 5:
+      return Assets.assetsEdibleOil;
+    case 6:
+      return Assets.assetsHousehold;
+    default:
+      return Assets.errorIcon;
+  }
+}
