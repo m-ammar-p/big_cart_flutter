@@ -12,7 +12,8 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class OrderSuccessView extends ViewModelBuilderWidget {
-  const OrderSuccessView({Key? key}) : super(key: key);
+  int? orderId;
+  OrderSuccessView({this.orderId, Key? key}) : super(key: key);
 
   @override
   Widget builder(BuildContext context, ChangeNotifier viewModel, Widget? child) {
@@ -48,8 +49,8 @@ class OrderSuccessView extends ViewModelBuilderWidget {
                           style: paragraph8,
                           children: [
                             TextSpan(
-                                text: '# 234324234',
-                                    // + id.toString().padLeft(5, '0'),
+                                text: "#"
+                                    + orderId.toString().padLeft(5, '0'),
                                 style: paragraph9),
                             TextSpan(
                                 text: ' is\nSuccessfuly Received',

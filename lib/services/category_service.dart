@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:e_commerce/constants/api/api_url.dart';
-import 'package:e_commerce/models/api_response_model.dart';
 import 'package:e_commerce/models/category_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -14,7 +12,7 @@ class CategoryService {
 
       var response = await http.get(categoryUrl,
           headers:{"Authorization": "Bearer ${accessToken.toString()}"}
-      ); // post;
+      ); // get
 
       List<dynamic> decodedJson = jsonDecode(response.body)["data"];
 

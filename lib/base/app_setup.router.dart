@@ -100,12 +100,29 @@ class StackedRouter extends RouterBase {
       );
     },
     OrderSuccessView: (data) {
+      var args = data.getArgs<OrderSuccessViewArguments>(
+        orElse: () => OrderSuccessViewArguments(),
+      );
       return MaterialPageRoute<dynamic>(
-        builder: (context) => const OrderSuccessView(),
+        builder: (context) => OrderSuccessView(
+          orderId: args.orderId,
+          key: args.key,
+        ),
         settings: data,
       );
     },
   };
+}
+
+/// ************************************************************************
+/// Arguments holder classes
+/// *************************************************************************
+
+/// OrderSuccessView arguments holder class
+class OrderSuccessViewArguments {
+  final int? orderId;
+  final Key? key;
+  OrderSuccessViewArguments({this.orderId, this.key});
 }
 
 /// ************************************************************************
@@ -226,6 +243,8 @@ extension NavigatorStateExtension on NavigationService {
   }
 
   Future<dynamic> navigateToOrderSuccessView({
+    int? orderId,
+    Key? key,
     int? id,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -234,6 +253,7 @@ extension NavigatorStateExtension on NavigationService {
   }) async {
     return navigateTo(
       Routes.orderSuccessView,
+      arguments: OrderSuccessViewArguments(orderId: orderId, key: key),
       id: id,
       preventDuplicates: preventDuplicates,
       parameters: parameters,

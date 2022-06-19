@@ -1,10 +1,16 @@
+import 'package:e_commerce/api_calls/order_place.dart';
 import 'package:e_commerce/base/app_setup.locator.dart';
 import 'package:e_commerce/base/app_setup.router.dart';
+import 'package:e_commerce/models/product_model.dart';
+import 'package:e_commerce/services/auth_service.dart';
+import 'package:e_commerce/services/cart_service.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class ShippingViewModel extends BaseViewModel {
+
+  bool isLoading = false;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -14,10 +20,41 @@ class ShippingViewModel extends BaseViewModel {
   TextEditingController cityController = TextEditingController();
   TextEditingController countryController = TextEditingController();
 
+  final _authService = locator<AuthService>();
+  final _cartService = locator<CartService>();
+
+  List<Product> get cart => _cartService.cart;
+
   void onNextTap(BuildContext context) async {
     if (!(Form.of(context)?.validate() ?? false)) {
       return;
     }
+
+    isLoading = true;
+    // it will terminate automatically when task will be done
+
+    try {
+      int orderId = await ApiCalls.placeOrder(
+          accessToken: _authService.authToken,
+          name: nameController.text,
+          email: emailController.text,
+          phno: phoneController.text,
+          address: addressController.text,
+          zip: zipCodeController.text,
+          city: cityController.text,
+          country: countryController.text,
+          items: cart.map((e) => e.toJson()).toList(),); // placeOrder
+
+      _cartService.clearCart();
+      isLoading = false;
+      notifyListeners();
+      navigateOrderSuccesPage(orderId: orderId);
+    } catch(e) {
+      isLoading = false;
+      print(e.toString());
+      notifyListeners();
+    }
+
   } // onNextTap
 
   String? validateName(String? value) {
@@ -88,9 +125,14 @@ class ShippingViewModel extends BaseViewModel {
     return null;
   } // validateCity
 
-  void navigateOrderSuccesPage() {
-    locator<NavigationService>().pushNamedAndRemoveUntil(Routes.orderSuccessView);
+  void navigateOrderSuccesPage({required int orderId}) {
+    locator<NavigationService>().navigateTo(Routes.orderSuccessView,
+        arguments: OrderSuccessViewArguments(orderId: orderId));
   } // navigateToSignupPage
+
+  void navigateToCartPage() {
+    locator<NavigationService>().pushNamedAndRemoveUntil(Routes.shoppingCartView);
+  } // navigateToHomePage
 
 
 } // ShippingViewModel

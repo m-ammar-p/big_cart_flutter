@@ -7,8 +7,10 @@ import 'title_with_cost.dart';
 
 class CostWithMainButton extends ViewModelBuilderWidget<ShoppingCartViewModel> {
 
-  const CostWithMainButton({
+  final VoidCallback onMainButtonTap;
+   CostWithMainButton({
     Key? key,
+    required this.onMainButtonTap,
   }) : super(key: key);
 
   @override
@@ -23,13 +25,13 @@ class CostWithMainButton extends ViewModelBuilderWidget<ShoppingCartViewModel> {
           const SizedBox(height: 22),
           TitleWithCost(
             title: 'Subtotal',
-            cost: 2, // viewModel.subTotal,
+            cost: viewModel.subTotal, // viewModel.subTotal,
             style: paragraph6,
           ),
           const SizedBox(height: 7),
           TitleWithCost(
             title: 'Shipping charges',
-            cost: 4, // viewModel.shippingCharges,
+            cost: viewModel.shippingCharges, // viewModel.shippingCharges,
             style: paragraph6,
           ),
           const SizedBox(height: 10),
@@ -40,14 +42,12 @@ class CostWithMainButton extends ViewModelBuilderWidget<ShoppingCartViewModel> {
           ),
           TitleWithCost(
             title: 'Total',
-            cost: 8, // viewModel.totalCost,
+            cost: viewModel.totalCost, // viewModel.totalCost,
             style: paragraph5,
           ),
           const SizedBox(height: 16),
           AppMainButton(
-              onTap: () {
-                // viewModel.moveToCheckout();
-              },
+              onTap: onMainButtonTap,
               text: 'Checkout'),
           const SizedBox(height: 36),
         ],
@@ -57,4 +57,7 @@ class CostWithMainButton extends ViewModelBuilderWidget<ShoppingCartViewModel> {
 
   @override
   ShoppingCartViewModel viewModelBuilder(BuildContext context) => ShoppingCartViewModel();
+
+  @override
+  bool get reactive => true;
 } // CostWithMainButton

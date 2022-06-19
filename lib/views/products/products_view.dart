@@ -40,4 +40,14 @@ class ProductsView extends ViewModelBuilderWidget<ProductsViewModel> {
 
   @override
   viewModelBuilder(BuildContext context) => ProductsViewModel();
+
+
+  @override
+  void onViewModelReady(ProductsViewModel viewModel) {
+
+    viewModel.init();
+  } // onViewModelReady
+
+  @override
+  bool get reactive => true;
 } // ProductsView

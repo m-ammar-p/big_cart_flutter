@@ -11,7 +11,9 @@ import 'package:stacked_services/stacked_services.dart';
 
 import '../services/auth_service.dart';
 import '../services/carousel_services.dart';
+import '../services/cart_service.dart';
 import '../services/category_service.dart';
+import '../services/product_service.dart';
 
 final locator = StackedLocator.instance;
 
@@ -25,5 +27,7 @@ Future<void> setupLocator(
   locator.registerLazySingleton(() => CarouselService());
   locator.registerLazySingleton(() => AuthService());
   locator.registerLazySingleton(() => CategoryService());
+  locator.registerLazySingleton(() => ProductService());
+  locator.registerLazySingleton(() => CartService());
   locator.registerSingleton(NavigationService());
 }

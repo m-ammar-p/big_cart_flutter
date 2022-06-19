@@ -56,10 +56,10 @@ class ProductCard extends StatelessWidget {
                             height: 10,
                             width: 10,
                             decoration: BoxDecoration(
-                              color: Color(0xFFffc0a0
-                                // int.parse(
-                                //   '0xFF' + shadeColor.toString().substring(1),
-                                // ),
+                              color: Color(
+                                int.parse(
+                                  '0xFF' + shadeColor.toString().substring(1),
+                                ),
                               ).withOpacity(0.3),
                               shape: BoxShape.circle,
                             ),
@@ -69,8 +69,8 @@ class ProductCard extends StatelessWidget {
                       Container(
                         margin: const EdgeInsets.only(bottom: 8, top: 15),
                         child: FittedBox(
-                            child: Image.asset(Assets.assetsFreshPeachNobackgound),
-                            // Image.network(image ?? Assets.assetsFreshPeach)
+                            child: Image.network(image ?? Assets.errorIcon),
+                            //Image.asset(Assets.assetsFreshPeachNobackgound),
                         ),
                       ),
                     ],

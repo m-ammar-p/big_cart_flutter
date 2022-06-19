@@ -24,7 +24,7 @@ class HomeView extends ViewModelBuilderWidget<HomeViewModel> {
     double bannerWidth = screenWidth(context) - 34;
 
     return Scaffold(
-      floatingActionButton: FloatingButton(onPressed:() => locator<NavigationService>().pushNamedAndRemoveUntil(Routes.productsView)),
+      floatingActionButton: FloatingButton(onPressed:() => locator<NavigationService>().pushNamedAndRemoveUntil(Routes.shoppingCartView)),
       body: Container(
         height: screenHeight(context, percentage: 1),
         decoration: BoxDecoration(

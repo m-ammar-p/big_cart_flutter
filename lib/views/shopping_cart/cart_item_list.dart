@@ -6,27 +6,36 @@ import 'package:flutter/src/foundation/change_notifier.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:stacked/stacked.dart';
 
-class CartItemList extends ViewModelBuilderWidget {
+class CartItemList extends ViewModelBuilderWidget<ShoppingCartViewModel> {
   const CartItemList({Key? key}) : super(key: key);
 
   @override
-  Widget builder(BuildContext context, ChangeNotifier viewModel, Widget? child) {
-   return ListView.builder(
-
-     itemCount: 10,
-     itemBuilder: (BuildContext context, int index,) => CartItemCard(
-         shadeColor: 'ffc0a0',
-         image: Assets.assetsFreshPeach,
-         price: 725,
-         title: "Fresh Peach",
-         unit: "150 lbs",
-         qtyInCart: 5,
-         onMinusTap: ()=>{},
-         onPlusTap: ()=>{},),
-   );
-
+  Widget builder(
+      BuildContext context, ShoppingCartViewModel viewModel, Widget? child) {
+    return ListView.builder(
+      itemCount: viewModel.cart.length,
+      itemBuilder: (
+        BuildContext context,
+        int index,
+      ) =>
+          CartItemCard(
+        shadeColor: viewModel.cart[index].color,
+        image: viewModel.cart[index].image,
+        price: viewModel.cart[index].price,
+        title: viewModel.cart[index].title,
+        unit: viewModel.cart[index].unit,
+        qtyInCart: viewModel.productQuantity(viewModel.cart[index]),
+        onMinusTap: () => viewModel.removeFromCart(viewModel.cart[index]),
+        onPlusTap: () => viewModel.addToCart(viewModel.cart[index]),
+        onDeleteTap: () => viewModel.deleteFromCart(viewModel.cart[index]),
+      ),
+    );
   } // builder
 
   @override
-  ChangeNotifier viewModelBuilder(BuildContext context) => ShoppingCartViewModel();
+  ShoppingCartViewModel viewModelBuilder(BuildContext context) =>
+      ShoppingCartViewModel();
+
+  @override
+  bool get reactive => true;
 } // CartItemList

@@ -6,7 +6,6 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CartItemCard extends StatelessWidget {
-
   final String? shadeColor;
   final String? image;
   final double? price;
@@ -15,8 +14,10 @@ class CartItemCard extends StatelessWidget {
   int qtyInCart;
   VoidCallback onMinusTap;
   VoidCallback onPlusTap;
+  VoidCallback onDeleteTap;
 
-   CartItemCard({Key? key,
+  CartItemCard({
+    Key? key,
     required this.shadeColor,
     required this.image,
     required this.price,
@@ -25,8 +26,8 @@ class CartItemCard extends StatelessWidget {
     required this.qtyInCart,
     required this.onMinusTap,
     required this.onPlusTap,
-  }) :
-        super(key: key);
+    required this.onDeleteTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +37,7 @@ class CartItemCard extends StatelessWidget {
           motion: const ScrollMotion(),
           children: [
             GestureDetector(
-              onTap: () {},
-                  //viewModel.deleteFromCart(viewModel.cart[index]),
+              onTap: onDeleteTap,
               child: Container(
                 margin: const EdgeInsets.only(top: 11),
                 width: (screenWidth(context) * 0.22) - 17,
@@ -78,14 +78,11 @@ class CartItemCard extends StatelessWidget {
                         height: 10,
                         width: 10,
                         decoration: BoxDecoration(
-                          color: Color(0xFFffc0a0
-                            // int.parse(
-                            //   '0xFF' +
-                            //       viewModel.cart[index].color
-                            //           .toString()
-                            //           .substring(1),
-                            // ),
-                          ).withOpacity(0.3),
+                          color: Color(
+                            int.parse(
+                              '0xFF' + shadeColor.toString().substring(1),
+                            ),
+                          ).withOpacity(0.5),
                           shape: BoxShape.circle,
                         ),
                       ),
@@ -94,12 +91,9 @@ class CartItemCard extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.only(bottom: 8, top: 15),
                     child: FittedBox(
-                        child: Image.asset(Assets.assetsFreshPeachNobackgound),
-
-                        // Image.network(
-                        //     viewModel.cart[index].image ??
-                        //         AssetConstants.errorIcon)),
-                  ),
+                        child: Image.network(image ?? Assets.errorIcon)
+                        //  Image.asset(Assets.assetsFreshPeachNobackgound),
+                        ),
                   ),
                 ],
               ),
@@ -112,25 +106,15 @@ class CartItemCard extends StatelessWidget {
                 Text(
                   '\$' + (price ?? 0).toString().padRight(4, '0'),
                   style: paragraph6.copyWith(color: appGreenColor),
-                      // (viewModel.cart[index].price ?? 0)
-                      //     .toString()
-                      //     .padRight(4, '0') +
-                      // ' x ' +
-                      // (viewModel.cart[index].qty ?? 0).toString(),
-                  // style: paragraph6.copyWith(color: appGreenColor),
                 ),
                 Text(
                   title ?? '',
                   style: heading7.copyWith(color: Colors.black),
 
-                  // viewModel.cart[index].title ?? '',
-                  // style: heading7.copyWith(color: Colors.black),
                 ),
                 Text(
                   unit ?? '',
                   style: paragraph6,
-                  // viewModel.cart[index].unit ?? '',
-                  // style: paragraph6,
                 ),
               ],
             ),
@@ -143,29 +127,21 @@ class CartItemCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                      onTap: () {
-                        // viewModel.addToCart(viewModel.cart[index]);
-                      },
+                      onTap: onPlusTap,
                       child: Container(
                         color: Colors.transparent,
                         height: 31,
                         alignment: Alignment.center,
                         child: SvgPicture.asset(
-                            Assets.assetsAddIcon,
+                          Assets.assetsAddIcon,
                           width: 13.5,
                         ),
                       ),
                     ),
-                    Text("hello"
-                      // viewModel
-                      //     .productQuantity(viewModel.cart[index])
-                      //     .toString(),
-                      // style: paragraph4,
+                    Text(qtyInCart.toString(),
                     ),
                     GestureDetector(
-                      onTap: () {
-                        //viewModel.removeFromCart(viewModel.cart[index]);
-                      },
+                      onTap: onMinusTap,
                       child: Container(
                         color: Colors.transparent,
                         height: 31,
