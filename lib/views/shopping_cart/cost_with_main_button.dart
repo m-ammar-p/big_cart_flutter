@@ -7,10 +7,8 @@ import 'title_with_cost.dart';
 
 class CostWithMainButton extends ViewModelBuilderWidget<ShoppingCartViewModel> {
 
-  final VoidCallback onMainButtonTap;
-   CostWithMainButton({
+   const CostWithMainButton({
     Key? key,
-    required this.onMainButtonTap,
   }) : super(key: key);
 
   @override
@@ -47,7 +45,7 @@ class CostWithMainButton extends ViewModelBuilderWidget<ShoppingCartViewModel> {
           ),
           const SizedBox(height: 16),
           AppMainButton(
-              onTap: onMainButtonTap,
+              onTap: () => viewModel.navigateToShippingPage(),
               text: 'Checkout'),
           const SizedBox(height: 36),
         ],

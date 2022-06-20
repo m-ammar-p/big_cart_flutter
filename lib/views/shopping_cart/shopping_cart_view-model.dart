@@ -12,9 +12,11 @@ class ShoppingCartViewModel extends BaseViewModel {
 
   final _cartService = locator<CartService>();
 
-  double get totalCost => shippingCharges + subTotal;
+  List<Product> get cart => _cartService.cart;
 
+  double get totalCost => shippingCharges + subTotal;
   double _shippingCharges = 1.9;
+
   double get shippingCharges => _shippingCharges;
 
   double get subTotal {
@@ -28,8 +30,6 @@ class ShoppingCartViewModel extends BaseViewModel {
       return 0.0;
     }
   }
-
-  List<Product> get cart => _cartService.cart;
 
   void addToCart(Product product){
     _cartService.addProductToCart(product: product);

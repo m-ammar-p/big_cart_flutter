@@ -8,12 +8,15 @@ class AppTextField extends StatelessWidget {
   final Widget? prefixIcon;
   TextEditingController? controller;
   void Function(String value)? onChanged;
+  final ValueChanged<String>? onSubmitted;
 
   AppTextField(
       {Key? key,
         required this.placeholder,
         this.controller,
-        this.prefixIcon})
+        this.prefixIcon,
+        this.onChanged,
+        this.onSubmitted,})
       : super(key: key);
 
   @override
@@ -27,6 +30,8 @@ class AppTextField extends StatelessWidget {
       ),
       child: TextField(
         controller: controller,
+        onChanged: onChanged,
+        onSubmitted: onSubmitted,
         style: paragraph1,
         decoration: InputDecoration(
           border: InputBorder.none,

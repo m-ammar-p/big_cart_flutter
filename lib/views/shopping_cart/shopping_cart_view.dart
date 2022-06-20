@@ -25,7 +25,7 @@ class ShoppingCartView extends ViewModelBuilderWidget<ShoppingCartViewModel> {
             Expanded(
               child: CartItemList(),
             ),
-            CostWithMainButton(onMainButtonTap: () => viewModel.navigateToShippingPage(),),
+            CostWithMainButton(),
           ],
         ),
       ),

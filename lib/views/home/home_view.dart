@@ -24,7 +24,9 @@ class HomeView extends ViewModelBuilderWidget<HomeViewModel> {
     double bannerWidth = screenWidth(context) - 34;
 
     return Scaffold(
-      floatingActionButton: FloatingButton(onPressed:() => locator<NavigationService>().pushNamedAndRemoveUntil(Routes.shoppingCartView)),
+      floatingActionButton: FloatingButton(onPressed: () =>
+          locator<NavigationService>().pushNamedAndRemoveUntil(
+              Routes.shoppingCartView)),
       body: Container(
         height: screenHeight(context, percentage: 1),
         decoration: BoxDecoration(
@@ -33,10 +35,16 @@ class HomeView extends ViewModelBuilderWidget<HomeViewModel> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 50, left: 16, right: 16, bottom: 10),
+              padding: const EdgeInsets.only(
+                  top: 50, left: 16, right: 16, bottom: 10),
               child: AppTextField(
-                placeholder: "Search keywords...",
-                controller: viewModel.searchController,
+                  placeholder: "Search keywords...",
+                  controller: viewModel.searchController,
+                  onChanged: (text) => viewModel.searchController.text = text,
+                  onSubmitted: (text) {
+                    viewModel.isOnlyProduct = true;
+                    viewModel.navigateToCategoryPage();
+                  },
               ),
             ),
 
@@ -59,7 +67,8 @@ class HomeView extends ViewModelBuilderWidget<HomeViewModel> {
                   Container(
                     color: appGreyColorBackground,
                     child: Padding(
-                      padding: const EdgeInsets.only(top:10, left: 16, right: 16),
+                      padding: const EdgeInsets.only(
+                          top: 10, left: 16, right: 16),
                       child: Column(
                         children: [
                           TitleWithArrowButton(title: "Featured products",),

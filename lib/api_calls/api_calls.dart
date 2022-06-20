@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:e_commerce/constants/api/api_url.dart';
+import 'package:e_commerce/models/product_model.dart';
 import 'package:http/http.dart' as http;
 
 class ApiCalls {
@@ -44,5 +45,7 @@ class ApiCalls {
       throw e.toString();
     }
   } // placeOrder
+
+
 
 } // ApiCalls

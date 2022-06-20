@@ -1,4 +1,5 @@
 import 'package:e_commerce/constants/assets/assets_path.dart';
+import 'package:e_commerce/models/golbal_class.dart';
 import 'package:e_commerce/shared/styles/styles.dart';
 import 'package:e_commerce/views/home/home_view_model.dart';
 import 'package:flutter/material.dart';
@@ -22,39 +23,49 @@ class CategoryLayout extends ViewModelBuilderWidget<HomeViewModel> {
                 scrollDirection: Axis.horizontal,
                 itemCount: viewModel.categories.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(vertical: 13),
-                        margin: const EdgeInsets.only(
-                          left: 10,
-                          top: 17,
-                          bottom: 11,
-                          right: 10,
-                        ),
-                        width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color:getCategoryColorFromId(
-                              viewModel.categories[index].id ?? 0),
-                        ),
-                        child: Image.asset(
-                          getCategoryIconFromId(
-                              viewModel.categories[index].id ?? 0),
-                        ),
-                      ),
-                      Flexible(
-                        child: Text(
-                          viewModel.categories[index].title ?? "veg",
-                          style: paragraph7.copyWith(
-                            fontSize: 12,
+                  return GestureDetector(
+                    onTap: () {
+                      Global.categoryId = viewModel.categories[index].id ?? 0;
+                      Global.title = viewModel.categories[index].title ?? "Not Found";
+                      Global.isCategorySelected = true;
+
+                      viewModel.navigateToCategoryPage(id: Global.categoryId,
+                      title: Global.title);
+                    },
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(vertical: 13),
+                          margin: const EdgeInsets.only(
+                            left: 10,
+                            top: 17,
+                            bottom: 11,
+                            right: 10,
                           ),
-                          maxLines: 2,
-                          textAlign: TextAlign.center,
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color:getCategoryColorFromId(
+                                viewModel.categories[index].id ?? 0),
+                          ),
+                          child: Image.asset(
+                            getCategoryIconFromId(
+                                viewModel.categories[index].id ?? 0),
+                          ),
                         ),
-                      ),
-                    ],
+                        Flexible(
+                          child: Text(
+                            viewModel.categories[index].title ?? "veg",
+                            style: paragraph7.copyWith(
+                              fontSize: 12,
+                            ),
+                            maxLines: 2,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
                   );
                 }),
           ),

@@ -82,8 +82,15 @@ class StackedRouter extends RouterBase {
       );
     },
     ProductsView: (data) {
+      var args = data.getArgs<ProductsViewArguments>(
+        orElse: () => ProductsViewArguments(),
+      );
       return MaterialPageRoute<dynamic>(
-        builder: (context) => const ProductsView(),
+        builder: (context) => ProductsView(
+          key: args.key,
+          title: args.title,
+          id: args.id,
+        ),
         settings: data,
       );
     },
@@ -117,6 +124,14 @@ class StackedRouter extends RouterBase {
 /// ************************************************************************
 /// Arguments holder classes
 /// *************************************************************************
+
+/// ProductsView arguments holder class
+class ProductsViewArguments {
+  final Key? key;
+  final String? title;
+  final int? id;
+  ProductsViewArguments({this.key, this.title, this.id});
+}
 
 /// OrderSuccessView arguments holder class
 class OrderSuccessViewArguments {
@@ -195,6 +210,8 @@ extension NavigatorStateExtension on NavigationService {
   }
 
   Future<dynamic> navigateToProductsView({
+    Key? key,
+    String? title,
     int? id,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -203,6 +220,7 @@ extension NavigatorStateExtension on NavigationService {
   }) async {
     return navigateTo(
       Routes.productsView,
+      arguments: ProductsViewArguments(key: key, title: title, id: id),
       id: id,
       preventDuplicates: preventDuplicates,
       parameters: parameters,

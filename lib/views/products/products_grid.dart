@@ -14,25 +14,35 @@ class ProductsGrid extends ViewModelBuilderWidget<ProductsViewModel> {
           childAspectRatio: 181 / 234,
           crossAxisSpacing: 18,
           mainAxisSpacing: 20),
-      padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 20),
-      itemCount: 6,
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+      itemCount: viewModel.products.length,
       itemBuilder: (context, index) => ProductCard(
-        shadeColor: 'ffc0a0',
-        favoriteToggle: false,
-        price: 352.0,
-        title: 'Fresh Fruit',
-        onFavoriteButtonTap: () {  },
-        onMinusTap: () {  },
-        image: '',
-        unit: '',
-        qtyInCart: 0,
-        onPlusTap: () {  },
+        shadeColor: viewModel.products[index].color,
+        price: viewModel.products[index].price,
+        title: viewModel.products[index].title ?? "",
+        image: viewModel.products[index].image,
+        unit: viewModel.products[index].unit,
+        qtyInCart: viewModel.productQuantity(viewModel.products[index]),
+        favoriteToggle: viewModel.isFavorited(viewModel.products[index]),
+        onFavoriteButtonTap: () => viewModel.addOrRemoveFavorites(viewModel.products[index]),
+        onMinusTap: () => viewModel.removeFromCart(viewModel.products[index]),
+        onPlusTap: () => viewModel.addToCart(viewModel.products[index]),
       ),
-
+      shrinkWrap: true,
+      primary: false,
+      physics: ScrollPhysics(),
     );
   } // builder
 
   @override
-  ProductsViewModel viewModelBuilder(BuildContext context) =>
-      ProductsViewModel();
+  ProductsViewModel viewModelBuilder(BuildContext context) => ProductsViewModel();
+
+
+  @override
+  void onViewModelReady(ProductsViewModel viewModel) {
+    viewModel.init();
+  } // onViewModelReady
+
+  @override
+  bool get reactive => true;
 } // ProductsGrid
