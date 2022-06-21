@@ -4,6 +4,7 @@ import 'package:e_commerce/shared/styles/styles.dart';
 import 'package:e_commerce/shared/widgets/app_text_field.dart';
 import 'package:e_commerce/shared/widgets/carousel_banner.dart';
 import 'package:e_commerce/shared/widgets/floating_button.dart';
+import 'package:e_commerce/shared/widgets/loading_animation.dart';
 import 'package:e_commerce/shared/widgets/title_with_arrow_button.dart';
 import 'package:e_commerce/utils/helper.dart';
 import 'package:e_commerce/views/home/category_Layout.dart';
@@ -45,9 +46,12 @@ class HomeView extends ViewModelBuilderWidget<HomeViewModel> {
                     viewModel.isOnlyProduct = true;
                     viewModel.navigateToCategoryPage();
                   },
+                onSuffixIconTap: () => viewModel.onLogoutTap(),
               ),
             ),
 
+            if(viewModel.isLogoutLoading)
+              LoadingAnimation(),
             Expanded(
               child: ListView(
                 children: [

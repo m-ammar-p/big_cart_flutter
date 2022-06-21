@@ -1,18 +1,35 @@
 import 'package:e_commerce/base/app_setup.locator.dart';
 import 'package:e_commerce/base/app_setup.router.dart';
+import 'package:e_commerce/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class SignupViewModel extends BaseViewModel {
 
+  bool isLoading = false;
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordlController = TextEditingController();
   TextEditingController phonelController = TextEditingController();
 
-  void onLoginTap(BuildContext context) async {
+  final _authService = locator<AuthService>();
+
+  void onSignupTap(BuildContext context) async {
     if (!(Form.of(context)?.validate() ?? false)) {
       return;
+    }
+    isLoading = true;
+    // it will terminate automatically when task will be done
+    var res = await runBusyFuture(_authService.signupUser(emailController.text, phonelController.text, passwordlController.text));
+    isLoading = false;
+
+
+    if(res){
+      navigateToLoginPage();
+    } else{
+      ScaffoldMessenger.of(context)
+          .showSnackBar(_authService.snakbar);
     }
   } // onLoginTap
 
@@ -56,7 +73,6 @@ class SignupViewModel extends BaseViewModel {
 
   void navigateToLoginPage() {
     locator<NavigationService>().pushNamedAndRemoveUntil(Routes.loginView);
-
-  } // navigateToSignupPage
+  } // navigateToLoginPage
 
 } // LoginViewModel

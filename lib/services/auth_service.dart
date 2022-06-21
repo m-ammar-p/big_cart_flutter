@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:e_commerce/constants/api/api_url.dart';
 import 'package:e_commerce/models/api_response_model.dart';
-import 'package:e_commerce/models/category_model.dart';
 import 'package:e_commerce/shared/widgets/public_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -51,8 +50,29 @@ class AuthService {
     }catch(e){
       return false;
     }
-
   } // loginUser
+
+  Future<bool> signupUser(String email, String phone, String password) async {
+
+    try{
+      await _signup(email, phone, password);
+      return true;
+    }catch(e){
+      return false;
+    }
+  } // signupUser
+
+  Future<bool> logoutUser() async {
+    try {
+      _user = await _logout(
+        _user?.accessToken,
+      );
+      await resetUser();
+      return true;
+    }catch(e){
+      return false;
+    }
+  } // logoutUser
 
   Future<User?> _login(String email, String password) async {
     var signinUrl = Uri.parse(ApiBaseUrl.baseUrl + '/user/signin');
@@ -66,8 +86,6 @@ class AuthService {
 
       _user =
       APIResponse<User>.fromJson(decodedJson, User.fromJson(decodedJson['data'])).data!;
-
-      print("From auth Service $authToken");
       _saveUser();
       return _user;
 
@@ -76,5 +94,47 @@ class AuthService {
       throw e.toString();
     }
   } // _login
+
+  Future<User?> _signup(String email, String phone, String password) async {
+    var signinUrl = Uri.parse(ApiBaseUrl.baseUrl + '/user');
+    try {
+      var response = await http.post(signinUrl, body: {
+        "email": email,
+        "phone": phone,
+        "password": password,
+      }); // post
+
+      var decodedJson = jsonDecode(response.body) as Map<String, dynamic>;
+
+      _user =
+      APIResponse<User>.fromJson(decodedJson, User.fromJson(decodedJson['data'])).data!;
+
+      print("From auth Service $authToken");
+      _saveUser();
+      return _user;
+
+    } catch (e) {
+      snakbar = PublicSnackBar(content: Text("Invalid Credentials"));
+      throw e.toString();
+    }
+  } // _signup
+
+  static Future<User> _logout(
+      String? accessToken,
+      ) async {
+    var signoutUrl = Uri.parse(ApiBaseUrl.baseUrl + '/user/signout');
+    try {
+      var response = await http.get(
+        signoutUrl,
+        headers: {"Authorization": "Bearer ${accessToken.toString()}"},
+      );
+      Map<String, dynamic> json = jsonDecode(response.body);
+      User user =
+      APIResponse<User>.fromJson(json, User.fromJson(json['data'])).data!;
+      return user;
+    } catch (e) {
+      throw (e.toString());
+    }
+  }
 
 } // AuthService

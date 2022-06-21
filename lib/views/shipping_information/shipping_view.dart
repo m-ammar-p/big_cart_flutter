@@ -73,6 +73,7 @@ class ShippingView extends ViewModelBuilderWidget<ShippingViewModel> {
                             controller: viewModel.phoneController,
                             validator: viewModel.validatePhoneNumber,
                             hintText: "Phone",
+                            isPhoneNum: true,
                             prefixIconPath: Assets.assetsPhoneIcon,
                           ),
 
@@ -97,6 +98,7 @@ class ShippingView extends ViewModelBuilderWidget<ShippingViewModel> {
                             controller: viewModel.zipCodeController,
                             validator: viewModel.validateZipCode,
                             hintText: "Zip code",
+                            isPhoneNum: true,
                             prefixIconPath: Assets.assetsZipcodeIcon,
                           ),
 

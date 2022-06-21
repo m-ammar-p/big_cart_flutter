@@ -113,7 +113,8 @@ class SignupView extends ViewModelBuilderWidget<SignupViewModel> {
                         // Login Button
                         AppMainButton(
                           text: "Signup",
-                          onTap: () => viewModel.onLoginTap(context),
+                          isLoading: viewModel.isLoading,
+                          onTap: () => viewModel.onSignupTap(context),
                         ),
 
                         SizedBox(

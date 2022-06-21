@@ -17,7 +17,7 @@ class LoginViewModel extends BaseViewModel {
 
   void init() async {
 
-    // await runBusyFuture(_authService.resetUser());
+     await runBusyFuture(_authService.resetUser());
     // this works like SetState() -> just call it
     // notifyListeners();
     var authToken = await runBusyFuture(_authService.loadUser());
@@ -27,7 +27,7 @@ class LoginViewModel extends BaseViewModel {
       locator<NavigationService>().replaceWith(Routes.homeView);
       return;
     }
-  } //init
+  } // init
 
   void onLoginTap(BuildContext context) async {
     if (!(Form.of(context)?.validate() ?? false)) {
@@ -38,11 +38,13 @@ class LoginViewModel extends BaseViewModel {
     // it will terminate automatically when task will be done
     var res = await runBusyFuture(_authService.loginUser(emailController.text, passwordlController.text));
     isLoading = false;
-    ScaffoldMessenger.of(context)
-        .showSnackBar(_authService.snakbar);
+
 
     if(res){
       navigateToHomePage();
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(_authService.snakbar);
     }
 
   } // onLoginTap

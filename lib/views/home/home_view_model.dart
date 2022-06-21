@@ -34,6 +34,7 @@ class HomeViewModel extends BaseViewModel {
   String get searchKeyword => searchController.text;
 
   bool isOnlyProduct = false;
+  bool isLogoutLoading = false;
 
   void addToCart(Product product){
     _cartService.addProductToCart(product: product);
@@ -63,6 +64,18 @@ class HomeViewModel extends BaseViewModel {
     }
   } // isFavorited
 
+
+  void onLogoutTap() async {
+    isLogoutLoading = true;
+    // it will terminate automatically when task will be done
+    var res = await runBusyFuture(_authService.logoutUser());
+    isLogoutLoading = false;
+
+    if(res){
+      navigateToLoginPage();
+    }
+  } // onLogoutTap
+
   void init() async {
     categories = <Category>[];
     products = <Product>[];
@@ -88,5 +101,9 @@ class HomeViewModel extends BaseViewModel {
       arguments: ProductsViewArguments(id: id, title: title));
     }
   } // navigateToCategoryPage
+
+  void navigateToLoginPage() {
+    locator<NavigationService>().pushNamedAndRemoveUntil(Routes.loginView);
+  } // navigateToLoginPage
 
 } // HomeViewModel

@@ -9,6 +9,7 @@ class AppTextField extends StatelessWidget {
   TextEditingController? controller;
   void Function(String value)? onChanged;
   final ValueChanged<String>? onSubmitted;
+  GestureTapCallback?  onSuffixIconTap;
 
   AppTextField(
       {Key? key,
@@ -16,7 +17,9 @@ class AppTextField extends StatelessWidget {
         this.controller,
         this.prefixIcon,
         this.onChanged,
-        this.onSubmitted,})
+        this.onSubmitted,
+        this.onSuffixIconTap
+      })
       : super(key: key);
 
   @override
@@ -50,15 +53,18 @@ class AppTextField extends StatelessWidget {
             ),
           ),
 
-          suffixIcon: Padding(
-            padding: const EdgeInsets.only(right: 3),
-            child: Container(
-              width: 49,
-              alignment: Alignment.center,
-              child: Image.asset(
-                Assets.assetsFilter,
-                width: 19,
-                height: 17,
+          suffixIcon: GestureDetector(
+            onTap: onSuffixIconTap,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 3),
+              child: Container(
+                width: 49,
+                alignment: Alignment.center,
+                child: Image.asset(
+                  Assets.assetsFilter,
+                  width: 19,
+                  height: 17,
+                ),
               ),
             ),
           ),

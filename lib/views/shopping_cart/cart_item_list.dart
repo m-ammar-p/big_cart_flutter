@@ -38,4 +38,5 @@ class CartItemList extends ViewModelBuilderWidget<ShoppingCartViewModel> {
 
   @override
   bool get reactive => true;
+
 } // CartItemList
